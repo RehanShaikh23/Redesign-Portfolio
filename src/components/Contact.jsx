@@ -12,7 +12,7 @@ export default function Contact() {
   const content = useScrollReveal()
 
   return (
-    <section id="contact" className="py-20 lg:py-32">
+    <section id="contact" className="pt-20 pb-10 lg:pt-32 lg:pb-16">
       {/* Section Header */}
       <div
         ref={header.ref}
@@ -67,7 +67,7 @@ export default function Contact() {
       </div>
 
       {/* Footer */}
-      <div className="mt-24 pt-8 border-t border-slate-800/50 text-center">
+      <div className="mt-12 pt-6 border-t border-slate-800/50 text-center">
         <p className="text-slate-500 font-mono text-xs">
           Designed & Built by <span className="text-emerald-400">Rehan Shaikh</span>
         </p>

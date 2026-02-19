@@ -3,41 +3,26 @@ import { HoverEffect } from './HoverEffect'
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description:
-      'A full-stack e-commerce solution with real-time inventory management, payment processing, and an admin dashboard built with modern technologies.',
-    link: '#',
-  },
-  {
-    title: 'Project Management Tool',
+    title: 'Group Management Tool',
     description:
       'A collaborative tool for teams to manage tasks, track progress, and communicate with real-time updates and drag-and-drop boards.',
     link: '#',
+    github: 'https://github.com/RehanShaikh23/GroupManagementFinal.git',
   },
   {
     title: 'AI Chat Application',
     description:
       'An intelligent chat application powered by machine learning featuring natural language processing, sentiment analysis, and adaptive responses.',
     link: '#',
+    github: 'https://github.com/RehanShaikh23',
   },
   {
     title: 'Restaurant POS System',
     description:
       'Full-stack restaurant management system with order tracking, table management, payment integration, and real-time kitchen display.',
     link: '#',
-  },
-  {
-    title: 'Portfolio Website',
-    description:
-      'A modern developer portfolio built with React and Tailwind CSS featuring smooth animations, scroll reveals, and responsive design.',
-    link: '#',
-  },
-  {
-    title: 'Blog Platform',
-    description:
-      'A content management system with Markdown support, SEO optimization, comment system, and analytics dashboard for writers.',
-    link: '#',
-  },
+    github: 'https://github.com/RehanShaikh23',
+  }
 ]
 
 export default function Work() {

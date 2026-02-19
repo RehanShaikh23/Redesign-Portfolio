@@ -13,6 +13,7 @@ const navItems = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+  const [hoveredNav, setHoveredNav] = useState(null)
 
   // Track active section on scroll
   useEffect(() => {
@@ -65,15 +66,19 @@ export default function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <ul className="hidden lg:flex items-center space-x-8 font-mono text-sm">
+          <ul
+            className="hidden lg:flex items-center space-x-1 font-mono text-sm"
+            onMouseLeave={() => setHoveredNav(null)}
+          >
             {navItems.map((item) => (
-              <li key={item.num}>
+              <li key={item.num} className="relative">
                 <a
                   href={item.href}
-                  className={`group flex items-center gap-1 transition-colors ${
+                  onMouseEnter={() => setHoveredNav(item.num)}
+                  className={`relative z-10 flex items-center gap-1 px-4 py-2 rounded-full transition-colors duration-200 ${
                     activeSection === item.sectionId
                       ? 'text-emerald-400'
-                      : 'hover:text-emerald-400'
+                      : ''
                   }`}
                 >
                   <span style={{ color: activeSection === item.sectionId ? '#64FFDA' : item.color }}>
@@ -83,12 +88,33 @@ export default function Header() {
                     className={
                       activeSection === item.sectionId
                         ? 'text-emerald-400'
-                        : 'text-slate-100 group-hover:text-emerald-400'
+                        : hoveredNav === item.num
+                          ? 'text-emerald-400'
+                          : 'text-slate-100'
                     }
+                    style={{ transition: 'color 0.2s ease' }}
                   >
                     {item.label}
                   </span>
                 </a>
+
+                {/* Sliding pill hover background */}
+                {hoveredNav === item.num && (
+                  <motion.div
+                    layoutId="navHoverPill"
+                    className="absolute inset-0 rounded-full bg-emerald-500/10 border border-emerald-500/20"
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
+                )}
+
+                {/* Active indicator dot */}
+                {activeSection === item.sectionId && !hoveredNav && (
+                  <motion.div
+                    layoutId="navActiveDot"
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400"
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
+                )}
               </li>
             ))}
           </ul>

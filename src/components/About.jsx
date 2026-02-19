@@ -29,21 +29,16 @@ export default function About() {
           className={`space-y-6 text-lg lg:text-xl text-slate-400 leading-relaxed reveal-left ${text.isVisible ? 'visible' : ''}`}
         >
           <p>
-            I'm an experienced Software Engineer with over 5 years of
-            programming experience and 4 years of professional experience
-            building elegant UIs and crafting great APIs.
+            I'm a backend focused Java Developer with hands on experience building scalable applications and designing reliable server side systems for real world usage.
           </p>
           <p>
-            On the frontend, I I use frameworks like Vue.js and React.js to
-            consume APIs and build scalable applications and on the backend, I'm
-            skilled in building RESTful APIs, implementing continuous integration
-            and delivery using Github Actions and Circle CI.
+            My core expertise lies in Java and Spring Boot, where I build RESTful APIs, implement authentication flows, handle business logic, and ensure strong data integrity. 
+            I actively work with databases like MySQL and PostgreSQL, focusing on schema design, query efficiency, and performance optimization. 
+            I also explore modern backend capabilities using Spring AI to integrate intelligent features into applications.
           </p>
           <p>
-            I'm an avid fan of test-driven development and I believe that no
-            feature is complete unless it is adequately tested.
+           On the cloud and deployment side, I work with AWS services such as EC2, S3, and CloudFront, along with GitHub and Vercel for version control and delivery workflows.
           </p>
-          <p>I love programming, coffee, gaming and everything in-between.</p>
         </div>
 
         {/* Image/Video Call Mockup */}

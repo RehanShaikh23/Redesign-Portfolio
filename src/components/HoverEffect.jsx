@@ -1,6 +1,7 @@
 import { cn } from "../lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { Github } from "lucide-react";
 
 export const HoverEffect = ({ items, className }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -38,7 +39,21 @@ export const HoverEffect = ({ items, className }) => {
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle>{item.title}</CardTitle>
+            <CardTitle>
+              <span>{item.title}</span>
+              {item.github && (
+                <a
+                  href={item.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="p-2 rounded-full text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all duration-300 cursor-pointer"
+                  aria-label={`View ${item.title} on GitHub`}
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+              )}
+            </CardTitle>
             <CardDescription>{item.description}</CardDescription>
           </Card>
         </a>
@@ -64,7 +79,7 @@ export const Card = ({ className, children }) => {
 
 export const CardTitle = ({ className, children }) => {
   return (
-    <h4 className={cn("text-slate-100 font-bold tracking-wide mt-4", className)}>
+    <h4 className={cn("text-slate-100 font-bold tracking-wide mt-4 flex items-center justify-between gap-2", className)}>
       {children}
     </h4>
   );
