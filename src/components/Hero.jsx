@@ -62,7 +62,7 @@ export default function Hero() {
               I'm{' '}
               <Tooltip content={
                 <div className="flex flex-col items-center gap-3">
-                  <img src={RehanPhoto} alt="Rehan Shaikh" className="w-28 h-28 rounded-full object-cover object-top ring-2 ring-white/10" />
+                  <img src={RehanPhoto} alt="Rehan Shaikh" className="w-28 h-28 rounded-full object-cover object-top ring-2 ring-white/10" loading="lazy" width="112" height="112" />
                   <p>A passionate Full Stack Java Developer from Pune, India — driven by clean code, scalable architecture, and building products that make an impact.</p>
                 </div>
               }>
@@ -70,7 +70,7 @@ export default function Hero() {
               </Tooltip>, a passionate Full Stack Java Developer and BCA student at{' '}
               <Tooltip content={
                 <div className="flex flex-col items-center gap-3">
-                  <img src={PoonaCollegePhoto} alt="AKI's Poona College" className="w-full rounded-md object-cover" />
+                  <img src={PoonaCollegePhoto} alt="AKI's Poona College" className="w-full rounded-md object-cover" loading="lazy" width="400" height="250" />
                   <p>A well-known college in Pune, Maharashtra, affiliated with Savitribai Phule Pune University, offering diverse programs in arts, science, and commerce.</p>
                 </div>
               }>

@@ -61,17 +61,20 @@ export default function About() {
                 src={rehanPic}
                 alt="Rehan Shaikh"
                 className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                width="600"
+                height="360"
               />
 
               {/* Video Call Overlay */}
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-slate-900/80 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-700/50">
-                <button className="p-2.5 rounded-full bg-slate-700/50 text-slate-300 hover:bg-slate-600 transition">
+                <button aria-label="Mute microphone" className="p-2.5 rounded-full bg-slate-700/50 text-slate-300 hover:bg-slate-600 transition">
                   <MicOff strokeWidth={1.5} className="w-5 h-5" />
                 </button>
-                <button className="p-2.5 rounded-full bg-slate-700/50 text-slate-300 hover:bg-slate-600 transition">
+                <button aria-label="Toggle video" className="p-2.5 rounded-full bg-slate-700/50 text-slate-300 hover:bg-slate-600 transition">
                   <Video strokeWidth={1.5} className="w-5 h-5" />
                 </button>
-                <button className="p-2.5 rounded-full bg-red-500 hover:bg-red-600 text-white transition">
+                <button aria-label="End call" className="p-2.5 rounded-full bg-red-500 hover:bg-red-600 text-white transition">
                   <PhoneOff strokeWidth={1.5} className="w-5 h-5" />
                 </button>
               </div>

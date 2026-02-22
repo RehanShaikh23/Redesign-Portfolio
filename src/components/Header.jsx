@@ -136,6 +136,7 @@ export default function Header() {
 
           {/* Mobile Menu Toggle */}
           <button
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             className="lg:hidden text-emerald-400 relative z-50"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
@@ -173,6 +174,7 @@ export default function Header() {
               {/* Close Button */}
               <div className="flex justify-end p-6">
                 <button
+                  aria-label="Close menu"
                   className="text-emerald-400 hover:text-emerald-300 transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
