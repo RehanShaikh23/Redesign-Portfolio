@@ -18,25 +18,40 @@ export default function Header() {
   // Track active section on scroll
   useEffect(() => {
     const sectionIds = navItems.map((item) => item.sectionId)
-    const observers = []
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id)
-      if (!el) return
+    const handleScroll = () => {
+      const headerOffset = 100
+      const scrollY = window.scrollY + headerOffset
+      const windowHeight = window.innerHeight
+      const docHeight = document.documentElement.scrollHeight
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(id)
-          }
-        },
-        { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' }
-      )
-      observer.observe(el)
-      observers.push(observer)
-    })
+      // If near bottom of page, activate last section
+      if (scrollY + windowHeight >= docHeight - 50) {
+        setActiveSection(sectionIds[sectionIds.length - 1])
+        return
+      }
 
-    return () => observers.forEach((o) => o.disconnect())
+      // Find which section is currently in view
+      let currentSection = ''
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (!el) continue
+        const rect = el.getBoundingClientRect()
+        const sectionTop = rect.top + window.scrollY
+
+        if (scrollY >= sectionTop - windowHeight * 0.3) {
+          currentSection = id
+        }
+      }
+
+      if (currentSection) {
+        setActiveSection(currentSection)
+      }
+    }
+
+    handleScroll() // Set initial state
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   // Lock body scroll when mobile menu is open
