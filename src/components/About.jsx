@@ -1,5 +1,5 @@
 import { MicOff, Video, PhoneOff } from 'lucide-react'
-import rehanPic from '../assets/Rehan_Pic-removebg-preview.png'
+import rehanPic from '../assets/My_Pic.jpeg'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 export default function About() {
