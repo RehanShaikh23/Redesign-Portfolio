@@ -5,8 +5,11 @@ import Experience from './components/Experience'
 import Work from './components/Work'
 import Blog from './components/Blog'
 import Contact from './components/Contact'
+import useLenis from './hooks/useLenis'
 
 function App() {
+  useLenis()
+
   return (
     <div className="bg-[#040D1F] text-slate-300 antialiased selection:bg-emerald-500/30 selection:text-emerald-200 min-h-screen">
       <Header />
