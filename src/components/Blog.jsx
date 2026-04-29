@@ -4,39 +4,39 @@ import { useScrollReveal, useStaggerReveal } from '../hooks/useScrollReveal'
 
 const posts = [
   {
-    title: 'Building Scalable APIs with Node.js and Express',
+    title: 'Spring Boot Production Fixes — Lessons from Live Incidents',
     excerpt:
-      'A deep dive into designing RESTful APIs that can handle thousands of concurrent requests while maintaining clean architecture.',
+      'How I diagnosed and resolved critical production issues in Spring Boot microservices, from memory leaks and thread pool exhaustion to misconfigured health checks.',
+    date: 'Apr 2026',
+    readTime: '7 min read',
+    tags: ['Spring Boot', 'Production', 'Debugging'],
+    url: '#',
+  },
+  {
+    title: 'Getting Started with Spring AI for Intelligent Backends',
+    excerpt:
+      "Exploring Spring AI's integration with large language models — building prompt-driven APIs, embedding pipelines, and RAG-powered features in Java.",
+    date: 'Mar 2026',
+    readTime: '9 min read',
+    tags: ['Spring AI', 'LLM', 'Java'],
+    url: '#',
+  },
+  {
+    title: 'Database Optimization Strategies That Actually Work',
+    excerpt:
+      'Practical techniques for query tuning, index design, connection pooling, and schema refactoring that cut response times by 60% in production systems.',
+    date: 'Feb 2026',
+    readTime: '11 min read',
+    tags: ['Database', 'SQL', 'Performance'],
+    url: '#',
+  },
+  {
+    title: 'Deploying Enterprise Workloads on AWS VMware Cloud',
+    excerpt:
+      'A hands-on guide to migrating and managing VMware workloads on AWS VCloud — covering hybrid architecture, networking, and cost optimization patterns.',
     date: 'Jan 2026',
-    readTime: '8 min read',
-    tags: ['Node.js', 'API Design', 'Backend'],
-    url: '#',
-  },
-  {
-    title: 'Why TypeScript is a Game Changer for Large Projects',
-    excerpt:
-      'Exploring how TypeScript improves developer experience, reduces bugs, and makes refactoring large codebases a breeze.',
-    date: 'Dec 2025',
-    readTime: '6 min read',
-    tags: ['TypeScript', 'JavaScript', 'Best Practices'],
-    url: '#',
-  },
-  {
-    title: 'Mastering React Performance Optimization',
-    excerpt:
-      'Practical techniques for profiling and optimizing React applications — from memoization to code splitting and lazy loading.',
-    date: 'Nov 2025',
     readTime: '10 min read',
-    tags: ['React', 'Performance', 'Frontend'],
-    url: '#',
-  },
-  {
-    title: 'CI/CD Pipelines: From Zero to Production',
-    excerpt:
-      'A hands-on guide to setting up continuous integration and delivery pipelines using GitHub Actions and Docker.',
-    date: 'Oct 2025',
-    readTime: '12 min read',
-    tags: ['DevOps', 'CI/CD', 'Docker'],
+    tags: ['AWS', 'VMware Cloud', 'Infrastructure'],
     url: '#',
   },
 ]
@@ -46,7 +46,7 @@ export default function Blog() {
   const grid = useStaggerReveal()
 
   return (
-    <section id="blog" className="py-20 lg:py-32">
+    <section id="news" className="py-20 lg:py-32">
       {/* Section Header */}
       <div
         ref={header.ref}
@@ -54,12 +54,12 @@ export default function Blog() {
       >
         <span className="font-mono text-2xl lg:text-3xl text-pink-500">04.</span>
         <h2 className="text-3xl lg:text-4xl font-semibold text-slate-100 tracking-tight">
-          Blog
+          News
         </h2>
         <div className="h-px bg-slate-700 flex-grow max-w-xs ml-4 hidden sm:block"></div>
       </div>
 
-      {/* Blog Posts - CSS-only hover effects */}
+      {/* News Posts - CSS-only hover effects */}
       <div ref={grid.ref} className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {posts.map((post, index) => (
           <a

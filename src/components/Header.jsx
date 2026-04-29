@@ -6,7 +6,7 @@ const navItems = [
   { num: '01', label: 'about me', color: '#FF6B6B', href: '#about', sectionId: 'about' },
   { num: '02', label: 'experience', color: '#C6F135', href: '#experience', sectionId: 'experience' },
   { num: '03', label: 'work', color: '#64FFDA', href: '#work', sectionId: 'work' },
-  { num: '04', label: 'blog', color: '#FF6B6B', href: '#blog', sectionId: 'blog' },
+  { num: '04', label: 'news', color: '#FF6B6B', href: '#news', sectionId: 'news' },
   { num: '05', label: 'contact me', color: '#C6F135', href: '#contact', sectionId: 'contact' },
 ]
 

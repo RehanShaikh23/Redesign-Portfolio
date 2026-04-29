@@ -55,12 +55,13 @@ export default function About() {
             </div>
 
             {/* Image Area */}
-            <div className="relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-[5/3] w-full bg-slate-800">
+            <div className="relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/3] w-full bg-slate-800">
               {/* Profile Image */}
               <img
                 src={rehanPic}
                 alt="Rehan Shaikh"
-                className="absolute inset-0 w-full h-full object-cover object-top"
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: 'center 20%' }}
                 loading="lazy"
                 width="600"
                 height="360"
