@@ -1,0 +1,119 @@
+/* ─── Tech Constellation ─── */
+
+/* ═══ Central AI Core Hub Animations ═══ */
+
+/* Orbit ring 1 — slow clockwise */
+@keyframes orbit-1 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.core-orbit-1 {
+  animation: orbit-1 20s linear infinite;
+}
+
+/* Orbit ring 2 — medium counter-clockwise */
+@keyframes orbit-2 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+.core-orbit-2 {
+  animation: orbit-2 14s linear infinite;
+}
+
+/* Orbit ring 3 — fast clockwise */
+@keyframes orbit-3 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.core-orbit-3 {
+  animation: orbit-3 8s linear infinite;
+}
+
+/* Inner hexagonal circuit — very slow counter-rotation */
+@keyframes inner-circuit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+.core-inner-rotate {
+  animation: inner-circuit 30s linear infinite;
+}
+
+/* Glassmorphic sphere breathing pulse */
+@keyframes core-breathe {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(0.97);
+  }
+}
+.core-pulse {
+  animation: core-breathe 4s ease-in-out infinite;
+}
+
+/* Core center dot pulse */
+@keyframes dot-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+.core-dot-pulse {
+  animation: dot-pulse 2.5s ease-in-out infinite;
+}
+
+/* Floating levitation effect */
+@keyframes core-levitate {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-4px);
+  }
+}
+.core-float {
+  animation: core-levitate 5s ease-in-out infinite;
+}
+
+/* ═══ SVG Ring Pulses ═══ */
+
+@keyframes ring-pulse-1 {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.22; }
+}
+
+@keyframes ring-pulse-2 {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.14; }
+}
+
+.core-ring-1 {
+  animation: ring-pulse-1 4s ease-in-out infinite;
+}
+
+.core-ring-2 {
+  animation: ring-pulse-2 5s ease-in-out infinite 1s;
+}
+
+
+
+
+/* ═══ Tech Node ═══ */
+
+.tech-node {
+  will-change: transform;
+}
+
+/* ═══ Responsive ═══ */
+
+@media (max-width: 640px) {
+  .tech-constellation {
+    aspect-ratio: 1 / 1.1 !important;
+  }
+}
