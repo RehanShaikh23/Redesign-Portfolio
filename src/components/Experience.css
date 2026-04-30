@@ -1,0 +1,487 @@
+/* ═══════════════════════════════════════════════════════
+   Experience Timeline — Premium Glassmorphic Design
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Section ─── */
+.exp-section {
+  position: relative;
+  padding: 6rem 0 8rem;
+  overflow: hidden;
+}
+
+/* Ambient background glow */
+.exp-section::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Section Header ─── */
+.exp-header {
+  text-align: center;
+  margin-bottom: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.exp-header-label {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  padding: 0.4rem 1.4rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+}
+
+.exp-header-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.exp-header-title span {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.exp-header-subtitle {
+  font-size: 1.05rem;
+  color: #64748b;
+  margin-top: 0.75rem;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* ─── Timeline Container ─── */
+.exp-timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/* Central vertical line */
+.exp-timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(16, 185, 129, 0.3) 10%,
+    rgba(16, 185, 129, 0.15) 90%,
+    transparent 100%
+  );
+  transform: translateX(-50%);
+}
+
+/* Animated glow pulse on the line */
+.exp-timeline-line::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #10b981, transparent);
+  border-radius: 4px;
+  animation: timeline-pulse 4s ease-in-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0%, 100% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ─── Timeline Item Row ─── */
+.exp-item {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: start;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.exp-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Timeline Dot (Center Column) ─── */
+.exp-dot-col {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
+  width: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #040D1F;
+  border: 2.5px solid #10b981;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.exp-dot::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.exp-dot::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.exp-item:hover .exp-dot::before {
+  opacity: 1;
+}
+
+.exp-item:hover .exp-dot::after {
+  opacity: 1;
+}
+
+.exp-item:hover .exp-dot {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+/* ─── Card Placement ─── */
+.exp-card-left {
+  grid-column: 1;
+  padding-right: 2rem;
+}
+
+.exp-card-right {
+  grid-column: 3;
+  padding-left: 2rem;
+}
+
+/* Empty spacer for alternating layout */
+.exp-spacer {
+  display: block;
+}
+
+/* ─── Glass Card ─── */
+.exp-card {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.7) 0%,
+    rgba(15, 23, 42, 0.4) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(100, 116, 139, 0.12);
+  border-radius: 20px;
+  padding: 2rem 2.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Top gradient accent bar */
+.exp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #10b981, #06b6d4, #8b5cf6);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Soft inner glow */
+.exp-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    rgba(16, 185, 129, 0.04),
+    transparent
+  );
+  pointer-events: none;
+  border-radius: 20px 20px 0 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.exp-card:hover {
+  border-color: rgba(16, 185, 129, 0.25);
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 60px -15px rgba(0, 0, 0, 0.5),
+    0 0 40px -10px rgba(16, 185, 129, 0.1);
+}
+
+.exp-card:hover::before {
+  opacity: 1;
+}
+
+.exp-card:hover::after {
+  opacity: 1;
+}
+
+/* ─── Card Content ─── */
+.exp-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.12);
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.exp-duration svg {
+  width: 13px;
+  height: 13px;
+  opacity: 0.8;
+}
+
+.exp-role {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  line-height: 1.3;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.02em;
+}
+
+.exp-company {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: #06b6d4;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.exp-company::before {
+  content: '@';
+  opacity: 0.5;
+}
+
+.exp-description {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+/* ─── Tech Stack Pills ─── */
+.exp-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.exp-tech-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.exp-tech-pill:hover {
+  background: rgba(99, 102, 241, 0.18);
+  border-color: rgba(99, 102, 241, 0.35);
+  color: #c7d2fe;
+  transform: translateY(-1px);
+}
+
+/* ─── Connector Lines (horizontal from dot to card) ─── */
+.exp-item::before {
+  content: '';
+  position: absolute;
+  top: calc(2rem + 7px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(16, 185, 129, 0.2),
+    rgba(16, 185, 129, 0.05)
+  );
+  z-index: 1;
+}
+
+.exp-item.exp-item--left::before {
+  right: calc(50% + 20px);
+  left: calc(50% - 60px);
+  background: linear-gradient(
+    to left,
+    rgba(16, 185, 129, 0.25),
+    rgba(16, 185, 129, 0)
+  );
+}
+
+.exp-item.exp-item--right::before {
+  left: calc(50% + 20px);
+  right: calc(50% - 60px);
+  background: linear-gradient(
+    to right,
+    rgba(16, 185, 129, 0.25),
+    rgba(16, 185, 129, 0)
+  );
+}
+
+/* ─── Scroll Reveal Animations ─── */
+.exp-reveal {
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exp-reveal--left {
+  transform: translateX(-60px) translateY(20px);
+}
+
+.exp-reveal--right {
+  transform: translateX(60px) translateY(20px);
+}
+
+.exp-reveal.exp-visible {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+/* Dot fade in */
+.exp-dot-reveal {
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.exp-dot-reveal.exp-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Mobile: Stack everything vertically ─── */
+@media (max-width: 768px) {
+  .exp-timeline-line {
+    left: 24px;
+  }
+
+  .exp-item {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .exp-item::before {
+    display: none;
+  }
+
+  .exp-dot-col {
+    width: 48px;
+    min-width: 48px;
+    padding-top: 1.75rem;
+    justify-content: center;
+  }
+
+  .exp-spacer {
+    display: none !important;
+  }
+
+  .exp-card-left,
+  .exp-card-right {
+    grid-column: unset;
+    padding-left: 0;
+    padding-right: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .exp-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .exp-role {
+    font-size: 1.1rem;
+  }
+
+  .exp-reveal--left,
+  .exp-reveal--right {
+    transform: translateX(0) translateY(30px);
+  }
+
+  .exp-header {
+    margin-bottom: 3.5rem;
+  }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .exp-reveal,
+  .exp-dot-reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .exp-card {
+    transition: none;
+  }
+
+  .exp-timeline-line::after {
+    animation: none;
+  }
+}

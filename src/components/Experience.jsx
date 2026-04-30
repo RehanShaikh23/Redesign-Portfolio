@@ -1,107 +1,156 @@
-import { Calendar } from 'lucide-react'
+import { useEffect, useRef, useCallback } from 'react'
+import { Calendar, Briefcase } from 'lucide-react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import AnimatedList from './AnimatedList'
+import './Experience.css'
 
+/* ─── Experience Data ─── */
 const experiences = [
   {
-    role: 'Full Stack Java InternShip',
+    role: 'Full Stack Java Internship',
     company: 'Code B Solutions Pvt Ltd',
     period: '2025',
     description:
-      'Developed a Group Management Dashboard for adding, updating, and deleting groups.',
-    tech: ['React', 'Spring Boot', 'MySQL'],
+      'Developed a Group Management Dashboard for adding, updating, and deleting groups. Built RESTful APIs with Spring Boot and created a responsive React front-end with real-time state management.',
+    tech: ['React', 'Spring Boot', 'MySQL', 'REST API'],
   },
   {
     role: 'Software Engineering Intern',
     company: 'Accenture Nordics',
     period: 'July 2025',
     description:
-      'Completed virtual internship in Software Engineering with Accenture Nordics (Forage).com',
-    tech: ['IaaS', 'PaaS', 'SaaS'],
+      'Completed virtual internship in Software Engineering with Accenture Nordics (Forage). Explored cloud service models and enterprise architecture patterns.',
+    tech: ['IaaS', 'PaaS', 'SaaS', 'Cloud Architecture'],
   },
-  
 ]
 
-export default function Experience() {
-  const header = useScrollReveal()
+/* ─── Scroll-triggered reveal hook (per-item) ─── */
+function useItemReveal() {
+  const refs = useRef([])
 
-  const renderExperienceItem = (exp, index, isSelected) => (
-    <div className="relative pl-8 md:pl-12 group">
-      {/* Timeline Dot */}
-      <div
-        className={`absolute left-0 top-3 w-3 h-3 rounded-full border-2 border-[#040D1F] transition-all duration-500 ease-in-out ${
-          isSelected ? 'bg-emerald-400 scale-125' : 'bg-emerald-500'
-        }`}
-      />
+  const setRef = useCallback((el, index) => {
+    if (el) refs.current[index] = el
+  }, [])
 
-      {/* Vertical Line Segment */}
-      <div className="absolute left-[5px] top-6 bottom-0 w-px bg-gradient-to-b from-emerald-500/50 to-transparent" />
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('exp-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+    )
 
-      {/* Card */}
-      <div
-        className={`bg-[#0A1628] border rounded-xl p-6 lg:p-8 transition-all duration-500 ease-in-out ${
-          isSelected
-            ? 'border-emerald-500/30'
-            : 'border-slate-700/50'
-        }`}
-      >
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-          <div>
-            <h3 className="text-xl lg:text-2xl font-semibold text-slate-100">
-              {exp.role}
-            </h3>
-            <span className="text-emerald-400 font-mono text-sm">
-              @ {exp.company}
-            </span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-500 font-mono text-sm">
-            <Calendar className="w-4 h-4" />
-            <span>{exp.period}</span>
-          </div>
-        </div>
+    refs.current.forEach((el) => {
+      if (el) observer.observe(el)
+    })
 
-        <p className="text-slate-400 leading-relaxed mb-4">
-          {exp.description}
-        </p>
+    return () => observer.disconnect()
+  }, [])
 
-        {/* Tech Tags */}
-        <div className="flex flex-wrap gap-2">
-          {exp.tech.map((t) => (
-            <span
-              key={t}
-              className="px-3 py-1 text-xs font-mono rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
+  return setRef
+}
+
+/* ─── Timeline Card ─── */
+function TimelineCard({ exp }) {
+  return (
+    <div className="exp-card">
+      <div className="exp-duration">
+        <Calendar />
+        <span>{exp.period}</span>
+      </div>
+
+      <h3 className="exp-role">{exp.role}</h3>
+
+      <div className="exp-company">{exp.company}</div>
+
+      <p className="exp-description">{exp.description}</p>
+
+      <div className="exp-tech-stack">
+        {exp.tech.map((t) => (
+          <span key={t} className="exp-tech-pill">
+            {t}
+          </span>
+        ))}
       </div>
     </div>
   )
+}
+
+/* ─── Main Experience Section ─── */
+export default function Experience() {
+  const header = useScrollReveal()
+  const setRef = useItemReveal()
 
   return (
-    <section id="experience" className="py-20 lg:py-32">
-      {/* Section Header */}
+    <section id="experience" className="exp-section">
+      {/* ── Section Header ── */}
       <div
         ref={header.ref}
-        className={`flex items-center gap-4 mb-16 reveal ${header.isVisible ? 'visible' : ''}`}
+        className={`exp-header reveal ${header.isVisible ? 'visible' : ''}`}
       >
-        <span className="font-mono text-2xl lg:text-3xl text-pink-500">02.</span>
-        <h2 className="text-3xl lg:text-4xl font-semibold text-slate-100 tracking-tight">
-          Experience
+        <div className="exp-header-label">
+          <Briefcase size={14} style={{ display: 'inline', marginRight: '0.4rem', verticalAlign: '-2px' }} />
+          Career Journey
+        </div>
+        <h2 className="exp-header-title">
+          Professional <span>Experience</span>
         </h2>
-        <div className="h-px bg-slate-700 flex-grow max-w-xs ml-4 hidden sm:block"></div>
+        <p className="exp-header-subtitle">
+          A timeline of roles that shaped my engineering mindset and technical depth.
+        </p>
       </div>
 
-      {/* Animated Experience List */}
-      <AnimatedList
-        items={experiences}
-        renderItem={renderExperienceItem}
-        onItemSelect={(item, index) => console.log('Selected:', item.role)}
-        showGradients={true}
-        enableArrowNavigation={true}
-        displayScrollbar={false}
-      />
+      {/* ── Timeline ── */}
+      <div className="exp-timeline">
+        <div className="exp-timeline-line" aria-hidden="true" />
+
+        {experiences.map((exp, index) => {
+          const isLeft = index % 2 === 0
+
+          return (
+            <div
+              key={index}
+              className={`exp-item ${isLeft ? 'exp-item--left' : 'exp-item--right'}`}
+            >
+              {/* LEFT COLUMN */}
+              {isLeft ? (
+                <div
+                  ref={(el) => setRef(el, index * 2)}
+                  className={`exp-card-left exp-reveal exp-reveal--left`}
+                >
+                  <TimelineCard exp={exp} />
+                </div>
+              ) : (
+                <div className="exp-spacer" />
+              )}
+
+              {/* CENTER DOT */}
+              <div className="exp-dot-col">
+                <div
+                  ref={(el) => setRef(el, index * 2 + 1)}
+                  className="exp-dot exp-dot-reveal"
+                />
+              </div>
+
+              {/* RIGHT COLUMN */}
+              {isLeft ? (
+                <div className="exp-spacer" />
+              ) : (
+                <div
+                  ref={(el) => setRef(el, index * 2)}
+                  className={`exp-card-right exp-reveal exp-reveal--right`}
+                >
+                  <TimelineCard exp={exp} />
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
     </section>
   )
 }
