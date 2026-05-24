@@ -1,6 +1,7 @@
-import { useEffect, useRef, useCallback, useState } from 'react'
-import { Calendar, Briefcase, MapPin, ExternalLink, ChevronRight, Building2, Globe } from 'lucide-react'
+import { useState } from 'react'
+import { Calendar, Briefcase, MapPin, ChevronRight, Building2, Globe } from 'lucide-react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import ScrollStack, { ScrollStackItem } from './ScrollStack'
 import './Experience.css'
 
 /* ─── Experience Data ─── */
@@ -41,37 +42,6 @@ const experiences = [
   },
 ]
 
-/* ─── Scroll-triggered reveal hook (per-item) ─── */
-function useItemReveal() {
-  const refs = useRef([])
-
-  const setRef = useCallback((el, index) => {
-    if (el) refs.current[index] = el
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('exp-visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-    )
-
-    refs.current.forEach((el) => {
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
-  return setRef
-}
-
 /* ─── Icon Renderer ─── */
 function RoleIcon({ type, color }) {
   const iconProps = { size: 20, strokeWidth: 1.5, color }
@@ -79,7 +49,7 @@ function RoleIcon({ type, color }) {
   return <Building2 {...iconProps} />
 }
 
-/* ─── Experience Card ─── */
+/* ─── Experience Card (rendered inside ScrollStackItem) ─── */
 function ExperienceCard({ exp, index }) {
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -159,7 +129,6 @@ function ExperienceCard({ exp, index }) {
 /* ─── Main Experience Section ─── */
 export default function Experience() {
   const header = useScrollReveal()
-  const setRef = useItemReveal()
 
   return (
     <section id="experience" className="exp-section">
@@ -184,32 +153,27 @@ export default function Experience() {
         </p>
       </div>
 
-      {/* ── Timeline ── */}
-      <div className="exp-timeline">
-        {/* Animated vertical line */}
-        <div className="exp-timeline-track" aria-hidden="true">
-          <div className="exp-timeline-line" />
-          <div className="exp-timeline-glow" />
-        </div>
-
-        {experiences.map((exp, index) => (
-          <div
-            key={index}
-            ref={(el) => setRef(el, index)}
-            className="exp-item exp-reveal"
-            style={{ transitionDelay: `${index * 0.15}s` }}
-          >
-            {/* Timeline Node */}
-            <div className="exp-node" style={{ '--accent': exp.color }}>
-              <div className="exp-node-dot" />
-              <div className="exp-node-ring" />
-              <div className="exp-node-connector" />
-            </div>
-
-            {/* Card */}
-            <ExperienceCard exp={exp} index={index} />
-          </div>
-        ))}
+      {/* ── ScrollStack Cards ── */}
+      <div className="exp-scroll-stack-wrapper">
+        <ScrollStack
+          className="exp-scroll-stack"
+          useWindowScroll={false}
+          itemDistance={80}
+          itemScale={0.04}
+          itemStackDistance={35}
+          stackPosition="25%"
+          scaleEndPosition="12%"
+          baseScale={0.88}
+          scaleDuration={0.6}
+          rotationAmount={0}
+          blurAmount={1.5}
+        >
+          {experiences.map((exp, index) => (
+            <ScrollStackItem key={index} itemClassName="exp-stack-item">
+              <ExperienceCard exp={exp} index={index} />
+            </ScrollStackItem>
+          ))}
+        </ScrollStack>
       </div>
     </section>
   )
