@@ -19,6 +19,7 @@ const ScrollStack = ({
   rotationAmount = 0,
   blurAmount = 0,
   useWindowScroll = false,
+  skipLenis = false,
   onStackComplete
 }) => {
   const scrollerRef = useRef(null);
@@ -183,7 +184,19 @@ const ScrollStack = ({
     updateCardTransforms();
   }, [updateCardTransforms]);
 
-  const setupLenis = useCallback(() => {
+  const setupScrollListener = useCallback(() => {
+    // When skipLenis is true (e.g. app already has a global Lenis),
+    // just use a rAF loop to poll scroll position — no Lenis created.
+    if (skipLenis) {
+      const raf = (time) => {
+        updateCardTransforms();
+        animationFrameRef.current = requestAnimationFrame(raf);
+      };
+      animationFrameRef.current = requestAnimationFrame(raf);
+      return;
+    }
+
+    // Otherwise, create a Lenis instance as the original component does.
     if (useWindowScroll) {
       const lenis = new Lenis({
         duration: 1.2,
@@ -237,7 +250,7 @@ const ScrollStack = ({
       lenisRef.current = lenis;
       return lenis;
     }
-  }, [handleScroll, useWindowScroll]);
+  }, [handleScroll, useWindowScroll, skipLenis, updateCardTransforms]);
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
@@ -265,7 +278,7 @@ const ScrollStack = ({
       card.style.webkitPerspective = '1000px';
     });
 
-    setupLenis();
+    setupScrollListener();
 
     updateCardTransforms();
 
@@ -292,8 +305,9 @@ const ScrollStack = ({
     rotationAmount,
     blurAmount,
     useWindowScroll,
+    skipLenis,
     onStackComplete,
-    setupLenis,
+    setupScrollListener,
     updateCardTransforms
   ]);
 

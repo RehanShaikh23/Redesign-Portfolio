@@ -154,27 +154,26 @@ export default function Experience() {
       </div>
 
       {/* ── ScrollStack Cards ── */}
-      <div className="exp-scroll-stack-wrapper">
-        <ScrollStack
-          className="exp-scroll-stack"
-          useWindowScroll={false}
-          itemDistance={80}
-          itemScale={0.04}
-          itemStackDistance={35}
-          stackPosition="25%"
-          scaleEndPosition="12%"
-          baseScale={0.88}
-          scaleDuration={0.6}
-          rotationAmount={0}
-          blurAmount={1.5}
-        >
-          {experiences.map((exp, index) => (
-            <ScrollStackItem key={index} itemClassName="exp-stack-item">
-              <ExperienceCard exp={exp} index={index} />
-            </ScrollStackItem>
-          ))}
-        </ScrollStack>
-      </div>
+      <ScrollStack
+        className="exp-scroll-stack"
+        useWindowScroll={true}
+        skipLenis={true}
+        itemDistance={80}
+        itemScale={0.04}
+        itemStackDistance={35}
+        stackPosition="25%"
+        scaleEndPosition="12%"
+        baseScale={0.88}
+        scaleDuration={0.6}
+        rotationAmount={0}
+        blurAmount={1.5}
+      >
+        {experiences.map((exp, index) => (
+          <ScrollStackItem key={index} itemClassName="exp-stack-item">
+            <ExperienceCard exp={exp} index={index} />
+          </ScrollStackItem>
+        ))}
+      </ScrollStack>
     </section>
   )
 }
