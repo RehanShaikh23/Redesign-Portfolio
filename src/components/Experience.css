@@ -459,6 +459,18 @@
   .exp-scroll-stack .scroll-stack-card {
     border-radius: 18px;
     min-height: 16rem;
+    /* Reduce GPU-heavy backdrop-filter on mobile */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .exp-card {
+    transition: none;
+  }
+
+  .exp-card::before {
+    display: none;
   }
 
   .exp-card {
@@ -508,6 +520,7 @@
 }
 
 /* ─── Small Mobile (max-width: 480px) ─── */
+/* Remove backdrop-filter entirely on low-end devices */
 @media (max-width: 480px) {
   .exp-section {
     padding: 3rem 0 1.5rem;
@@ -528,6 +541,10 @@
   .exp-scroll-stack .scroll-stack-card {
     border-radius: 14px;
     min-height: 14rem;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(15, 23, 42, 0.92);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   }
 
   .exp-card {

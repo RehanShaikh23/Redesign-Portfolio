@@ -29,9 +29,10 @@ const ScrollStack = ({
   const cardsRef = useRef([]);
   const lastTransformsRef = useRef(new Map());
   const isUpdatingRef = useRef(false);
+  const isVisibleRef = useRef(false);
+  const pendingRafRef = useRef(null);
 
   // Cache original (untransformed) positions to avoid feedback loops
-  // when reading getBoundingClientRect on transformed elements.
   const cachedOffsetsRef = useRef([]);
   const cachedEndOffsetRef = useRef(0);
 
@@ -65,11 +66,9 @@ const ScrollStack = ({
     }
   }, [useWindowScroll]);
 
-  /** Measure the true document-top offset of an element, ignoring any
-   *  CSS transform currently applied to it or its ancestors within the stack. */
+  /** Measure the true document-top offset of an element, ignoring CSS transforms. */
   const measureOriginalOffset = useCallback((element) => {
     if (useWindowScroll) {
-      // Walk up offsetParents to get the layout position (unaffected by transforms)
       let top = 0;
       let el = element;
       while (el) {
@@ -82,8 +81,7 @@ const ScrollStack = ({
     }
   }, [useWindowScroll]);
 
-  /** Snapshot every card's original offset and the end-spacer offset.
-   *  Must be called BEFORE any transforms are applied. */
+  /** Snapshot every card's original offset and the end-spacer offset. */
   const cachePositions = useCallback(() => {
     const cards = cardsRef.current;
     cachedOffsetsRef.current = cards.map((card) =>
@@ -111,7 +109,6 @@ const ScrollStack = ({
     cardsRef.current.forEach((card, i) => {
       if (!card) return;
 
-      // Use cached original offset — immune to transform feedback
       const cardTop = cachedOffsetsRef.current[i] ?? 0;
       const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPositionPx;
@@ -201,19 +198,28 @@ const ScrollStack = ({
     getScrollData
   ]);
 
-  const handleScroll = useCallback(() => {
-    updateCardTransforms();
+  /** Schedule one transform update on the next frame (deduped). */
+  const scheduleUpdate = useCallback(() => {
+    if (!isVisibleRef.current) return;
+    if (pendingRafRef.current) return; // already scheduled
+    pendingRafRef.current = requestAnimationFrame(() => {
+      pendingRafRef.current = null;
+      updateCardTransforms();
+    });
   }, [updateCardTransforms]);
 
+  const handleScroll = useCallback(() => {
+    scheduleUpdate();
+  }, [scheduleUpdate]);
+
   const setupScrollListener = useCallback(() => {
-    // When skipLenis is true (e.g. app already has a global Lenis),
-    // just use a rAF loop to poll scroll position — no Lenis created.
+    // When skipLenis is true, use a passive scroll listener + rAF debounce
+    // instead of a continuous rAF loop. Fires only when actually scrolling.
     if (skipLenis) {
-      const raf = () => {
-        updateCardTransforms();
-        animationFrameRef.current = requestAnimationFrame(raf);
-      };
-      animationFrameRef.current = requestAnimationFrame(raf);
+      const target = useWindowScroll ? window : scrollerRef.current;
+      if (target) {
+        target.addEventListener('scroll', handleScroll, { passive: true });
+      }
       return;
     }
 
@@ -271,7 +277,7 @@ const ScrollStack = ({
       lenisRef.current = lenis;
       return lenis;
     }
-  }, [handleScroll, useWindowScroll, skipLenis, updateCardTransforms]);
+  }, [handleScroll, useWindowScroll, skipLenis]);
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
@@ -290,42 +296,67 @@ const ScrollStack = ({
       if (i < cards.length - 1) {
         card.style.marginBottom = `${itemDistance}px`;
       }
-      card.style.willChange = 'transform, filter';
+      card.style.willChange = 'transform';
       card.style.transformOrigin = 'top center';
       card.style.backfaceVisibility = 'hidden';
       card.style.transform = 'translateZ(0)';
       card.style.webkitTransform = 'translateZ(0)';
-      card.style.perspective = '1000px';
-      card.style.webkitPerspective = '1000px';
     });
 
     // Cache positions BEFORE any scroll-driven transforms are applied
     cachePositions();
 
+    // IntersectionObserver: only process scroll when section is near viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          updateCardTransforms();
+        }
+      },
+      { rootMargin: '200px 0px' }
+    );
+    observer.observe(scroller);
+
     // Recalculate cached positions on resize
+    let resizeTimer;
     const onResize = () => {
-      // Temporarily strip transforms so offsetTop reads are clean
-      cards.forEach((card) => {
-        card.style.transform = 'translateZ(0)';
-      });
-      // Wait one frame for layout to settle, then re-cache
-      requestAnimationFrame(() => {
-        cachePositions();
-        updateCardTransforms();
-      });
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        cards.forEach((card) => {
+          card.style.transform = 'translateZ(0)';
+        });
+        requestAnimationFrame(() => {
+          cachePositions();
+          updateCardTransforms();
+        });
+      }, 150);
     };
     window.addEventListener('resize', onResize);
 
+    // Start visible by default until observer fires
+    isVisibleRef.current = true;
     setupScrollListener();
     updateCardTransforms();
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', onResize);
+      clearTimeout(resizeTimer);
+      if (pendingRafRef.current) {
+        cancelAnimationFrame(pendingRafRef.current);
+      }
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
       if (lenisRef.current) {
         lenisRef.current.destroy();
+      }
+      if (skipLenis) {
+        const target = useWindowScroll ? window : scrollerRef.current;
+        if (target) {
+          target.removeEventListener('scroll', handleScroll);
+        }
       }
       stackCompletedRef.current = false;
       cardsRef.current = [];
@@ -348,14 +379,14 @@ const ScrollStack = ({
     onStackComplete,
     setupScrollListener,
     updateCardTransforms,
-    cachePositions
+    cachePositions,
+    handleScroll
   ]);
 
   return (
     <div className={`scroll-stack-scroller ${className}`.trim()} ref={scrollerRef}>
       <div className="scroll-stack-inner">
         {children}
-        {/* Spacer so the last pin can release cleanly */}
         <div className="scroll-stack-end" />
       </div>
     </div>

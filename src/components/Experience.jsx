@@ -166,7 +166,7 @@ export default function Experience() {
         baseScale={0.88}
         scaleDuration={0.6}
         rotationAmount={0}
-        blurAmount={1.5}
+        blurAmount={0}
       >
         {experiences.map((exp, index) => (
           <ScrollStackItem key={index} itemClassName="exp-stack-item">
