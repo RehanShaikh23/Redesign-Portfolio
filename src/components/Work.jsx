@@ -6,21 +6,21 @@ const projects = [
     title: 'Group Management Tool',
     description:
       'A collaborative tool for teams to manage tasks, track progress, and communicate with real-time updates and drag-and-drop boards.',
-    link: '#',
+    link: 'https://group-management-final.vercel.app/',
     github: 'https://github.com/RehanShaikh23/GroupManagementFinal.git',
   },
   {
-    title: 'AI Chat Application',
+    title: 'AI Rag ChatBot',
     description:
-      'An intelligent chat application powered by machine learning featuring natural language processing, sentiment analysis, and adaptive responses.',
-    link: '#',
-    github: 'https://github.com/RehanShaikh23',
+      'A full-stack RAG chatbot that answers questions from your own uploaded documents built with Spring Boot, Spring AI, PGVector, and real-time SSE streaming.',
+    link: 'https://ai-rag-chat-bot.vercel.app/',
+    github: 'https://github.com/RehanShaikh23/AI_Rag_ChatBot.git',
   },
   {
     title: 'Restaurant POS System',
     description:
       'Full-stack restaurant management system with order tracking, table management, payment integration, and real-time kitchen display.',
-    link: '#',
+    link: 'https://spicefusion.cloud/',
     github: 'https://github.com/RehanShaikh23',
   }
 ]

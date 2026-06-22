@@ -1,7 +1,7 @@
 import { cn } from "../lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { Github } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 
 export const HoverEffect = ({ items, className }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -14,8 +14,7 @@ export const HoverEffect = ({ items, className }) => {
       )}
     >
       {items.map((item, idx) => (
-        <a
-          href={item?.link}
+        <div
           key={item?.link}
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -41,22 +40,36 @@ export const HoverEffect = ({ items, className }) => {
           <Card>
             <CardTitle>
               <span>{item.title}</span>
-              {item.github && (
-                <a
-                  href={item.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="p-2 rounded-full text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all duration-300 cursor-pointer"
-                  aria-label={`View ${item.title} on GitHub`}
-                >
-                  <Github className="w-5 h-5" />
-                </a>
-              )}
+              <div className="flex items-center gap-1">
+                {item.link && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="p-2 rounded-full text-slate-400 hover:text-pink-400 hover:bg-pink-500/10 transition-all duration-300 cursor-pointer"
+                    aria-label={`View live demo of ${item.title}`}
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                  </a>
+                )}
+                {item.github && (
+                  <a
+                    href={item.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="p-2 rounded-full text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all duration-300 cursor-pointer"
+                    aria-label={`View ${item.title} on GitHub`}
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                )}
+              </div>
             </CardTitle>
             <CardDescription>{item.description}</CardDescription>
           </Card>
-        </a>
+        </div>
       ))}
     </div>
   );
