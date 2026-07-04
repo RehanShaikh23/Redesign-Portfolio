@@ -1,4 +1,4 @@
-import BlurText from './BlurText'
+import { PointerHighlight } from './ui/pointer-highlight'
 import { Tooltip } from './Tooltip'
 import TechConstellation from './TechConstellation'
 import RehanPhoto from '../assets/RehanShaikh.jpeg'
@@ -10,13 +10,12 @@ export default function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Hero Content */}
         <div className="space-y-8">
-          <BlurText
-            text="I'm Rehan Shaikh."
-            delay={200}
-            animateBy="words"
-            direction="top"
-            className="text-5xl lg:text-7xl font-semibold text-slate-100 tracking-tight leading-[1.1]"
-          />
+          <h1 className="text-5xl lg:text-7xl font-semibold text-slate-100 tracking-tight leading-[1.1] flex flex-wrap items-center gap-x-4 animate-hero-text">
+            <span>I'm</span>
+            <PointerHighlight rectangleClassName="border-blue-500/80 rounded" pointerClassName="text-blue-500">
+              <span className="text-slate-100">Rehan Shaikh.</span>
+            </PointerHighlight>
+          </h1>
 
           <div className="space-y-6 max-w-xl animate-hero-subtitle">
             <p className="text-lg lg:text-xl text-slate-400 leading-relaxed">
