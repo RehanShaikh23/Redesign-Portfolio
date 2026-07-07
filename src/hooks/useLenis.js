@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Lenis from 'lenis'
 
-export default function useLenis() {
+export default function useLenis(isLoading = false) {
   const lenisRef = useRef(null)
 
   useEffect(() => {
@@ -23,11 +23,24 @@ export default function useLenis() {
 
     requestAnimationFrame(raf)
 
+    if (isLoading) {
+      lenis.stop()
+    }
+
     return () => {
       lenis.destroy()
       lenisRef.current = null
     }
   }, [])
+
+  useEffect(() => {
+    if (!lenisRef.current) return
+    if (isLoading) {
+      lenisRef.current.stop()
+    } else {
+      lenisRef.current.start()
+    }
+  }, [isLoading])
 
   return lenisRef
 }
