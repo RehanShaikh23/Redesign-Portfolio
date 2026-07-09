@@ -1,6 +1,7 @@
 import { AlignRight, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
+import AnimatedSVGUnderlink from './ui/AnimatedSVGUnderlink'
 
 const navItems = [
   { num: '01', label: 'about me', color: '#FF6B6B', href: '#about', sectionId: 'about' },
@@ -90,37 +91,34 @@ export default function Header() {
                 <a
                   href={item.href}
                   onMouseEnter={() => setHoveredNav(item.num)}
-                  className={`relative z-10 flex items-center gap-1 px-4 py-2 rounded-full transition-colors duration-200 ${
-                    activeSection === item.sectionId
+                  className={`relative z-10 flex items-center px-4 py-2 transition-colors duration-200 ${activeSection === item.sectionId
                       ? 'text-emerald-400'
                       : ''
-                  }`}
+                    }`}
                 >
-                  <span style={{ color: activeSection === item.sectionId ? '#64FFDA' : item.color }}>
-                    {item.num}.
-                  </span>
-                  <span
-                    className={
-                      activeSection === item.sectionId
-                        ? 'text-emerald-400'
-                        : hoveredNav === item.num
-                          ? 'text-emerald-400'
-                          : 'text-slate-100'
-                    }
-                    style={{ transition: 'color 0.2s ease' }}
+                  <AnimatedSVGUnderlink
+                    isHovered={hoveredNav === item.num}
+                    underlineColor={item.color}
+                    strokeWidth={2.5}
+                    gap={4}
                   >
-                    {item.label}
-                  </span>
+                    <span style={{ color: activeSection === item.sectionId ? '#64FFDA' : item.color }}>
+                      {item.num}.
+                    </span>
+                    <span
+                      className={
+                        activeSection === item.sectionId
+                          ? 'text-emerald-400'
+                          : hoveredNav === item.num
+                            ? 'text-emerald-400'
+                            : 'text-slate-100'
+                      }
+                      style={{ transition: 'color 0.2s ease', marginLeft: '0.25rem' }}
+                    >
+                      {item.label}
+                    </span>
+                  </AnimatedSVGUnderlink>
                 </a>
-
-                {/* Sliding pill hover background */}
-                {hoveredNav === item.num && (
-                  <motion.div
-                    layoutId="navHoverPill"
-                    className="absolute inset-0 rounded-full bg-emerald-500/10 border border-emerald-500/20"
-                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                  />
-                )}
 
                 {/* Active indicator dot */}
                 {activeSection === item.sectionId && !hoveredNav && (
@@ -194,11 +192,10 @@ export default function Header() {
                     <a
                       href={item.href}
                       onClick={handleNavClick}
-                      className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 ${
-                        activeSection === item.sectionId
-                          ? 'bg-emerald-500/10 border border-emerald-500/30'
-                          : 'hover:bg-slate-700/30 border border-transparent'
-                      }`}
+                      className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 ${activeSection === item.sectionId
+                        ? 'bg-emerald-500/10 border border-emerald-500/30'
+                        : 'hover:bg-slate-700/30 border border-transparent'
+                        }`}
                     >
                       <span
                         style={{ color: activeSection === item.sectionId ? '#64FFDA' : item.color }}
@@ -207,11 +204,10 @@ export default function Header() {
                         {item.num}.
                       </span>
                       <span
-                        className={`text-base ${
-                          activeSection === item.sectionId
-                            ? 'text-emerald-400 font-medium'
-                            : 'text-slate-100'
-                        }`}
+                        className={`text-base ${activeSection === item.sectionId
+                          ? 'text-emerald-400 font-medium'
+                          : 'text-slate-100'
+                          }`}
                       >
                         {item.label}
                       </span>

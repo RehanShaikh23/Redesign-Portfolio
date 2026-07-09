@@ -1,5 +1,6 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { HoverEffect } from './HoverEffect'
+import { HoverEffect, Card, CardTitle, CardDescription } from './HoverEffect'
+import { Github, ExternalLink } from 'lucide-react'
 
 const projects = [
   {
@@ -25,6 +26,71 @@ const projects = [
   }
 ]
 
+/* ── Mobile-only infinite horizontal marquee ── */
+function InfiniteWorkScroller() {
+  // Duplicate the list so the second copy seamlessly follows the first
+  const doubled = [...projects, ...projects]
+
+  return (
+    <div className="relative overflow-hidden">
+      {/* Left gradient fade */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10"
+        style={{
+          background:
+            'linear-gradient(to right, #040D1F 0%, transparent 100%)',
+        }}
+      />
+      {/* Right gradient fade */}
+      <div
+        className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10"
+        style={{
+          background:
+            'linear-gradient(to left, #040D1F 0%, transparent 100%)',
+        }}
+      />
+
+      {/* Scrolling track */}
+      <div className="animate-marquee">
+        {doubled.map((item, idx) => (
+          <div key={idx} className="mx-2 w-[280px] flex-shrink-0">
+            <Card>
+              <CardTitle>
+                <span>{item.title}</span>
+                <div className="flex items-center gap-1">
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-full text-slate-400 hover:text-pink-400 hover:bg-pink-500/10 transition-all duration-300 cursor-pointer"
+                      aria-label={`View live demo of ${item.title}`}
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  )}
+                  {item.github && (
+                    <a
+                      href={item.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-full text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all duration-300 cursor-pointer"
+                      aria-label={`View ${item.title} on GitHub`}
+                    >
+                      <Github className="w-5 h-5" />
+                    </a>
+                  )}
+                </div>
+              </CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Work() {
   const header = useScrollReveal()
 
@@ -42,8 +108,15 @@ export default function Work() {
         <div className="h-px bg-slate-700 flex-grow max-w-xs ml-4 hidden sm:block"></div>
       </div>
 
-      {/* Projects with HoverEffect */}
-      <HoverEffect items={projects} />
+      {/* Mobile: Infinite smooth scroller */}
+      <div className="block md:hidden">
+        <InfiniteWorkScroller />
+      </div>
+
+      {/* Desktop: Grid with HoverEffect */}
+      <div className="hidden md:block">
+        <HoverEffect items={projects} />
+      </div>
     </section>
   )
 }

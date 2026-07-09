@@ -103,8 +103,13 @@ export default function Blog() {
         <div className="h-px bg-slate-700 flex-grow max-w-xs ml-4 hidden sm:block"></div>
       </div>
 
-      {/* News Posts - Tilt Cards */}
-      <div ref={grid.ref} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Mobile: Infinite smooth scroller */}
+      <div className="block md:hidden">
+        <InfiniteNewsScroller />
+      </div>
+
+      {/* Desktop: Tilt Card Grid */}
+      <div ref={grid.ref} className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
         {posts.map((post, index) => (
           <div
             key={index}
@@ -115,5 +120,38 @@ export default function Blog() {
         ))}
       </div>
     </section>
+  )
+}
+
+/* ── Mobile-only infinite horizontal marquee for News ── */
+function InfiniteNewsScroller() {
+  const doubled = [...posts, ...posts]
+
+  return (
+    <div className="relative overflow-hidden">
+      {/* Left gradient fade */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10"
+        style={{
+          background: 'linear-gradient(to right, #040D1F 0%, transparent 100%)',
+        }}
+      />
+      {/* Right gradient fade */}
+      <div
+        className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10"
+        style={{
+          background: 'linear-gradient(to left, #040D1F 0%, transparent 100%)',
+        }}
+      />
+
+      {/* Scrolling track */}
+      <div className="animate-marquee">
+        {doubled.map((post, idx) => (
+          <div key={idx} className="mx-2 w-[300px] flex-shrink-0">
+            <NewsCard post={post} />
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }

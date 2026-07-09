@@ -32,12 +32,12 @@ export default function About() {
             I'm a backend focused Java Developer with hands on experience building scalable applications and designing reliable server side systems for real world usage.
           </p>
           <p>
-            My core expertise lies in Java and Spring Boot, where I build RESTful APIs, implement authentication flows, handle business logic, and ensure strong data integrity. 
-            I actively work with databases like MySQL and PostgreSQL, focusing on schema design, query efficiency, and performance optimization. 
+            My core expertise lies in Java and Spring Boot, where I build RESTful APIs, implement authentication flows, handle business logic, and ensure strong data integrity.
+            I actively work with databases like MySQL and PostgreSQL, focusing on schema design, query efficiency, and performance optimization.
             I also explore modern backend capabilities using Spring AI to integrate intelligent features into applications.
           </p>
           <p>
-           On the cloud and deployment side, I work with AWS services such as EC2, S3, and CloudFront, along with GitHub and Vercel for version control and delivery workflows.
+            On the cloud and deployment side, I work with AWS services such as EC2, S3, and CloudFront, along with GitHub and Vercel for version control and delivery workflows.
           </p>
         </div>
 
