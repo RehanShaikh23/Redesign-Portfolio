@@ -6,7 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ─── Lenis Smooth Scroll ─── */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -286,6 +287,7 @@ body {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }

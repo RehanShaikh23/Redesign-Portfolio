@@ -38,7 +38,7 @@ export default function Preloader({
     const updateCounter = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / durationMs, 1);
-      
+
       // Custom cubic-bezier-like easing for speed variation
       // Starts fast, slows down towards the end for premium feel
       const easeProgress = 1 - Math.pow(1 - progress, 3); // Cubic easeOut
@@ -64,16 +64,16 @@ export default function Preloader({
   }, [duration]);
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[9999] pointer-events-none"
       style={{ overflow: "hidden" }}
     >
       <motion.div
         className="absolute inset-0 flex flex-col justify-between p-8 md:p-16 pointer-events-auto"
-        initial={{ 
-          y: 0, 
-          borderBottomLeftRadius: "0px", 
-          borderBottomRightRadius: "0px" 
+        initial={{
+          y: 0,
+          borderBottomLeftRadius: "0px",
+          borderBottomRightRadius: "0px"
         }}
         animate={isExiting ? {
           y: "-100%",
@@ -97,7 +97,7 @@ export default function Preloader({
             if (onComplete) onComplete();
           }
         }}
-        style={{ 
+        style={{
           backgroundColor,
           color: textColor,
           transformOrigin: "bottom center",
@@ -127,12 +127,12 @@ export default function Preloader({
         {/* Middle Section (Sleek Progress Bar) */}
         <div className="w-full flex flex-col items-start gap-4">
           <div className="w-full h-[1px] bg-slate-800/80 relative overflow-hidden">
-            <motion.div 
+            <motion.div
               className="absolute top-0 left-0 h-full"
-              style={{ 
+              style={{
                 backgroundColor: accentColor,
                 width: `${count}%`,
-                boxShadow: `0 0 10px ${accentColor}80` 
+                boxShadow: `0 0 10px ${accentColor}80`
               }}
               transition={{ type: "tween", ease: "easeOut" }}
             />
@@ -149,9 +149,9 @@ export default function Preloader({
           >
             Crafting scalable architecture and high-performance user interfaces.
           </motion.div>
-          
+
           <div className="flex items-baseline font-light select-none tracking-tighter">
-            <motion.span 
+            <motion.span
               className="text-[20vw] md:text-[14vw] lg:text-[12vw] leading-[0.8] select-none"
               style={{
                 fontFamily: '"Geist Variable", "Inter", sans-serif',
@@ -160,7 +160,7 @@ export default function Preloader({
             >
               {String(count).padStart(2, "0")}
             </motion.span>
-            <span 
+            <span
               className="text-[6vw] md:text-[4vw] lg:text-[3vw] ml-2 leading-[0.8]"
               style={{ color: accentColor }}
             >

@@ -92,8 +92,8 @@ export default function Header() {
                   href={item.href}
                   onMouseEnter={() => setHoveredNav(item.num)}
                   className={`relative z-10 flex items-center px-4 py-2 transition-colors duration-200 ${activeSection === item.sectionId
-                      ? 'text-emerald-400'
-                      : ''
+                    ? 'text-emerald-400'
+                    : ''
                     }`}
                 >
                   <AnimatedSVGUnderlink

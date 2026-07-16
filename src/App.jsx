@@ -16,9 +16,9 @@ function App() {
   return (
     <>
       {isLoading && (
-        <Preloader 
-          brandName="rehan®" 
-          onComplete={() => setIsLoading(false)} 
+        <Preloader
+          brandName="rehan®"
+          onComplete={() => setIsLoading(false)}
         />
       )}
       <div className="bg-[#040D1F] text-slate-300 antialiased selection:bg-emerald-500/30 selection:text-emerald-200 min-h-screen">

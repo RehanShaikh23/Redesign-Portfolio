@@ -36,7 +36,7 @@ export default function Hero() {
               }>
                 <span className="text-slate-200 cursor-pointer hover:text-white transition-colors duration-200">AKI's Poona College of Arts, Science & Commerce</span>
               </Tooltip>,{' '}
-              Pune graduating in June 2027. 
+              Pune graduating in June 2027.
               I specialize in building efficient, scalable, and user-focused web applications that blend clean code with real-world impact.
             </p>
 
