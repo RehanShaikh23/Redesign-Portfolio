@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { 
-  Terminal, 
-  Cpu, 
-  Layers, 
-  Play, 
-  RefreshCw, 
+import {
+  Terminal,
+  Cpu,
+  Layers,
+  Play,
+  RefreshCw,
   ArrowRight,
   Server
 } from 'lucide-react'
@@ -175,7 +175,7 @@ export default function About() {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-2 mt-2 sm:mt-0">
               <span className="font-mono text-xs text-slate-500 uppercase tracking-wider block">Developer Profile</span>
               <h3 className="text-2xl font-bold text-slate-100 tracking-tight">Rehan Shaikh</h3>
@@ -209,7 +209,7 @@ export default function About() {
               ))}
             </ul>
           </div>
-          
+
           {/* CTA */}
           <div className="pt-2 flex justify-center sm:justify-start">
             <MovingBorderButton
@@ -234,11 +234,11 @@ export default function About() {
                 <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
                 <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
               </div>
-              
+
               <span className="text-xs font-mono text-slate-500 select-none">
                 rehan-shaikh-app : portfolio-service
               </span>
-              
+
               <div className="w-16"></div>
             </div>
 
@@ -255,11 +255,10 @@ export default function About() {
                   <button
                     key={idx}
                     onClick={() => setActiveTab(idx)}
-                    className={`flex items-center gap-2 px-5 py-3 text-xs font-mono border-r border-slate-900/50 transition-all select-none duration-150 shrink-0 ${
-                      isActive 
-                        ? 'bg-[#040a17] text-emerald-400 border-b-2 border-b-emerald-500 font-semibold' 
+                    className={`flex items-center gap-2 px-5 py-3 text-xs font-mono border-r border-slate-900/50 transition-all select-none duration-150 shrink-0 ${isActive
+                        ? 'bg-[#040a17] text-emerald-400 border-b-2 border-b-emerald-500 font-semibold'
                         : 'text-slate-500 hover:text-slate-350 hover:bg-[#050b18]'
-                    }`}
+                      }`}
                   >
                     <IconComponent className="w-3.5 h-3.5" />
                     <span>{tab.name}</span>
@@ -270,7 +269,7 @@ export default function About() {
 
             {/* Workspace Area */}
             <div className="p-5 flex-grow font-mono text-[11px] leading-relaxed overflow-y-auto bg-[#040a17] relative select-text min-h-[350px]">
-              
+
               {/* Tab 1: System.out Console */}
               {activeTab === 0 && (
                 <div className="space-y-3 h-full flex flex-col justify-between">
@@ -287,7 +286,7 @@ export default function About() {
                         <span className="text-slate-300 pl-1">{log.msg}</span>
                       </div>
                     ))}
-                    
+
                     {isPrinting && (
                       <div className="flex items-center gap-2 text-slate-500 pl-1 mt-2">
                         <RefreshCw className="w-3 h-3 animate-spin text-emerald-500" />
@@ -322,11 +321,10 @@ export default function About() {
                         <button
                           key={idx}
                           onClick={() => setActiveStage(idx)}
-                          className={`flex flex-col text-left p-3.5 rounded-xl border transition-all duration-300 group cursor-pointer ${
-                            isActive 
-                              ? 'border-emerald-500/40 bg-[#0c1a35] shadow-[0_0_15px_rgba(16,185,129,0.08)]' 
+                          className={`flex flex-col text-left p-3.5 rounded-xl border transition-all duration-300 group cursor-pointer ${isActive
+                              ? 'border-emerald-500/40 bg-[#0c1a35] shadow-[0_0_15px_rgba(16,185,129,0.08)]'
                               : 'border-slate-800/80 bg-[#080f20] hover:bg-[#0c1730] hover:border-slate-700/50'
-                          }`}
+                            }`}
                         >
                           <span className="text-[9px] text-slate-500 uppercase tracking-widest mb-1 font-semibold">Stage {idx + 1}</span>
                           <span className={`text-[12px] font-bold mb-1 transition-colors ${isActive ? 'text-emerald-400' : 'text-slate-250 group-hover:text-slate-100'}`}>{stage.title.split('. ')[1]}</span>
@@ -347,7 +345,7 @@ export default function About() {
                         {stages[activeStage].desc}
                       </p>
                     </div>
-                    
+
                     <div className="mt-4 pt-3 border-t border-slate-900/60 text-[10px] text-slate-500 flex items-center gap-1.5">
                       <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                       <span>Click stages above to trace backend request lifecycle flow</span>
@@ -366,7 +364,7 @@ export default function About() {
                         <span className="text-[9px] text-slate-500 uppercase tracking-wider block">Virtual Machine</span>
                         <span className="text-[11px] text-slate-200 font-bold">OpenJDK 64-Bit Server VM (v21.0.2)</span>
                       </div>
-                      
+
                       <div>
                         <span className="text-[9px] text-slate-500 uppercase tracking-wider block">Uptime</span>
                         <span className="text-xs text-emerald-400 font-bold font-mono">{formatUptime(uptime)}</span>
@@ -376,7 +374,7 @@ export default function About() {
                         <span className="text-[9px] text-slate-500 uppercase tracking-wider block mb-1">Heap Memory Usage</span>
                         <div className="flex items-center gap-3">
                           <div className="flex-grow h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800/80">
-                            <div 
+                            <div
                               className="h-full bg-emerald-500 rounded-full transition-all duration-1000"
                               style={{ width: `${(heapMemory / 512) * 100}%` }}
                             ></div>
@@ -419,7 +417,7 @@ export default function About() {
                   </div>
                 </div>
               )}
-              
+
             </div>
           </div>
         </div>
