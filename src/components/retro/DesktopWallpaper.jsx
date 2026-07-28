@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import DesktopIcon from './DesktopIcon'
 import RetroWindow from './RetroWindow'
 import RetroDock from './RetroDock'
@@ -10,6 +10,7 @@ import ContactWindow from './windows/ContactWindow'
 import ResumeWindow from './windows/ResumeWindow'
 
 export default function DesktopWallpaper() {
+  const desktopRef = useRef(null)
   const [selectedIconId, setSelectedIconId] = useState(null)
   const [topZIndex, setTopZIndex] = useState(20)
 
@@ -112,6 +113,7 @@ export default function DesktopWallpaper() {
 
   return (
     <div
+      ref={desktopRef}
       onClick={() => setSelectedIconId(null)}
       className="min-h-screen bg-graph-paper relative overflow-hidden select-none pb-24 flex flex-col justify-between"
     >
@@ -136,6 +138,7 @@ export default function DesktopWallpaper() {
             id="profile"
             title="profile"
             type="profile"
+            dragConstraintsRef={desktopRef}
             isSelected={selectedIconId === 'profile'}
             onClick={() => setSelectedIconId('profile')}
             onDoubleClick={() => focusWindow('profile')}
@@ -145,6 +148,7 @@ export default function DesktopWallpaper() {
             id="works"
             title="works"
             type="folder"
+            dragConstraintsRef={desktopRef}
             isSelected={selectedIconId === 'works'}
             onClick={() => setSelectedIconId('works')}
             onDoubleClick={() => focusWindow('works')}
@@ -157,6 +161,7 @@ export default function DesktopWallpaper() {
             id="tools"
             title="tools"
             type="tools"
+            dragConstraintsRef={desktopRef}
             isSelected={selectedIconId === 'tools'}
             onClick={() => setSelectedIconId('tools')}
             onDoubleClick={() => focusWindow('tools')}
@@ -166,6 +171,7 @@ export default function DesktopWallpaper() {
             id="contact"
             title="contact"
             type="folder"
+            dragConstraintsRef={desktopRef}
             isSelected={selectedIconId === 'contact'}
             onClick={() => setSelectedIconId('contact')}
             onDoubleClick={() => focusWindow('contact')}
@@ -175,6 +181,7 @@ export default function DesktopWallpaper() {
             id="resume"
             title="resume"
             type="folder"
+            dragConstraintsRef={desktopRef}
             isSelected={selectedIconId === 'resume'}
             onClick={() => setSelectedIconId('resume')}
             onDoubleClick={() => focusWindow('resume')}

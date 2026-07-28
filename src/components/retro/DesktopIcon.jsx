@@ -1,8 +1,9 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 export function ProfileIcon({ size = 'md' }) {
   return (
-    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#3A3D36] border-2 border-[#2A2A2A] flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform">
+    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#3A3D36] border-2 border-[#2A2A2A] flex items-center justify-center shadow-md pointer-events-none">
       <span className="font-space text-2xl sm:text-3xl font-bold text-white tracking-tighter">
         r
       </span>
@@ -12,7 +13,7 @@ export function ProfileIcon({ size = 'md' }) {
 
 export function FolderIcon({ size = 'md' }) {
   return (
-    <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center transform group-hover:scale-105 transition-transform">
+    <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center pointer-events-none">
       {/* Folder Back Tab */}
       <div className="absolute top-1 left-1.5 w-7 h-3 bg-[#DFB239] rounded-t-sm border-t-2 border-l-2 border-r-2 border-[#2A2A2A]" />
       
@@ -33,7 +34,7 @@ export function FolderIcon({ size = 'md' }) {
 
 export function ToolsFolderIcon() {
   return (
-    <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center transform group-hover:scale-105 transition-transform">
+    <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center pointer-events-none">
       {/* Folder Back Tab */}
       <div className="absolute top-1 left-1.5 w-7 h-3 bg-[#D46B38] rounded-t-sm border-t-2 border-l-2 border-r-2 border-[#2A2A2A]" />
       
@@ -57,25 +58,40 @@ export default function DesktopIcon({
   onClick,
   onDoubleClick,
   isSelected,
+  dragConstraintsRef,
 }) {
   return (
-    <button
+    <motion.div
+      drag
+      dragMomentum={false}
+      dragElastic={0.05}
+      dragConstraints={dragConstraintsRef || false}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      whileDrag={{
+        scale: 1.12,
+        zIndex: 50,
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.2)',
+      }}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
-      className={`group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-all cursor-pointer select-none focus:outline-hidden ${
+      className={`group flex flex-col items-center gap-1.5 p-2 rounded-lg cursor-grab active:cursor-grabbing select-none touch-none relative z-10 ${
         isSelected
           ? 'bg-[#5A633F]/15 ring-2 ring-[#5A633F] ring-offset-2 ring-offset-[#ECE6D8]'
           : 'hover:bg-[#5A633F]/10'
       }`}
       aria-label={`Open ${title} window`}
+      role="button"
+      tabIndex={0}
     >
       {type === 'profile' && <ProfileIcon />}
       {type === 'folder' && <FolderIcon />}
       {type === 'tools' && <ToolsFolderIcon />}
 
-      <span className="font-space text-xs sm:text-sm font-semibold text-[#2A2A2A] tracking-tight group-hover:text-black">
+      <span className="font-space text-xs sm:text-sm font-semibold text-[#2A2A2A] tracking-tight group-hover:text-black pointer-events-none">
         {title}
       </span>
-    </button>
+    </motion.div>
   )
 }
+
