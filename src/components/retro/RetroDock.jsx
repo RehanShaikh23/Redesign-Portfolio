@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Github, Linkedin, Mail, Code, Sparkles, Folder, Terminal } from 'lucide-react'
+import { Github, Linkedin, Mail, Code, Sparkles, Folder, Terminal, FileText } from 'lucide-react'
 
 export default function RetroDock({
   openWindows = {},
@@ -67,6 +67,7 @@ export default function RetroDock({
     { id: 'works', label: 'works', icon: Folder },
     { id: 'tools', label: 'tools', icon: Code },
     { id: 'contact', label: 'contact', icon: Mail },
+    { id: 'resume', label: 'resume', icon: FileText },
   ]
 
   return (

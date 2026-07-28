@@ -7,6 +7,7 @@ import ProfileWindow from './windows/ProfileWindow'
 import WorksWindow from './windows/WorksWindow'
 import ToolsWindow from './windows/ToolsWindow'
 import ContactWindow from './windows/ContactWindow'
+import ResumeWindow from './windows/ResumeWindow'
 
 export default function DesktopWallpaper() {
   const [selectedIconId, setSelectedIconId] = useState(null)
@@ -44,6 +45,14 @@ export default function DesktopWallpaper() {
       zIndex: 10,
       path: 'C:\\REHAN\\contact',
       initialPosition: { x: 160, y: 130 },
+      accentColor: '#F3CB5A',
+    },
+    resume: {
+      isOpen: false,
+      isMinimized: false,
+      zIndex: 18,
+      path: 'C:\\REHAN\\resume',
+      initialPosition: { x: 100, y: 60 },
       accentColor: '#F3CB5A',
     },
   })
@@ -168,9 +177,7 @@ export default function DesktopWallpaper() {
             type="folder"
             isSelected={selectedIconId === 'resume'}
             onClick={() => setSelectedIconId('resume')}
-            onDoubleClick={() => {
-              window.open('/resume.pdf', '_blank')
-            }}
+            onDoubleClick={() => focusWindow('resume')}
           />
         </div>
       </div>
@@ -239,6 +246,22 @@ export default function DesktopWallpaper() {
           onFocus={() => focusWindow('contact')}
         >
           <ContactWindow />
+        </RetroWindow>
+
+        {/* Resume Window */}
+        <RetroWindow
+          id="resume"
+          path={windows.resume.path}
+          isOpen={windows.resume.isOpen}
+          isMinimized={windows.resume.isMinimized}
+          zIndex={windows.resume.zIndex}
+          initialPosition={windows.resume.initialPosition}
+          accentColor={windows.resume.accentColor}
+          onClose={() => closeWindow('resume')}
+          onMinimize={() => minimizeWindow('resume')}
+          onFocus={() => focusWindow('resume')}
+        >
+          <ResumeWindow />
         </RetroWindow>
       </div>
 
