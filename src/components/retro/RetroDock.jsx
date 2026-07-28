@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Github, Linkedin, Mail, Code, Sparkles, Folder, Terminal, FileText } from 'lucide-react'
+import { Dock } from '../ui/Dock'
 
 export default function RetroDock({
   openWindows = {},
@@ -70,65 +71,62 @@ export default function RetroDock({
     { id: 'resume', label: 'resume', icon: FileText },
   ]
 
+  const items = [
+    ...windowIcons.map((win, idx) => {
+      const isOpen = openWindows[win.id]?.isOpen
+      const isFocused = activeWindowId === win.id && isOpen
+      const IconComp = win.icon
+      const isLastWindow = idx === windowIcons.length - 1
+
+      return {
+        id: win.id,
+        label: win.label,
+        onClick: () => onToggleWindow(win.id),
+        separator: isLastWindow,
+        className: isFocused
+          ? 'bg-[#FAF7F0] text-[#2A2A2A] border-2 border-[#2A2A2A] font-bold shadow-md'
+          : isOpen
+          ? 'bg-[#474E31] text-white border border-white/40 hover:bg-[#3D4428]'
+          : 'bg-black/20 text-white/80 border border-white/10 hover:bg-black/30 hover:text-white',
+        icon: (
+          <div className="relative flex items-center justify-center w-full h-full">
+            <IconComp className="w-5 h-5" />
+            {isOpen && (
+              <span
+                className={`absolute -bottom-1 w-1.5 h-1.5 rounded-full ${
+                  isFocused ? 'bg-[#D46B38] ring-2 ring-white/50' : 'bg-[#F3CB5A]'
+                }`}
+              />
+            )}
+          </div>
+        ),
+      }
+    }),
+    ...socials.map((soc) => ({
+      id: soc.id,
+      label: soc.label,
+      href: soc.url,
+      style: { backgroundColor: soc.bg },
+      className:
+        'border-2 border-[#2A2A2A] text-white flex items-center justify-center shadow-xs cursor-pointer',
+      icon: soc.content,
+    })),
+  ]
+
   return (
-    <nav className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-4xl bg-[#5A633F] border-2 border-[#2A2A2A] rounded-2xl px-3 sm:px-6 py-2.5 retro-dock-shadow flex items-center justify-between gap-2 sm:gap-4">
-      {/* Active Windows Quick Bar */}
-      <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
-        {windowIcons.map((win) => {
-          const isOpen = openWindows[win.id]?.isOpen
-          const isFocused = activeWindowId === win.id && isOpen
-          const IconComp = win.icon
-
-          return (
-            <button
-              key={win.id}
-              onClick={() => onToggleWindow(win.id)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-space transition-all cursor-pointer select-none ${
-                isFocused
-                  ? 'bg-[#FAF7F0] text-[#2A2A2A] border-[#2A2A2A] font-bold shadow-xs scale-105'
-                  : isOpen
-                  ? 'bg-[#474E31] text-white border-white/40 hover:bg-[#3D4428]'
-                  : 'bg-black/10 text-white/70 border-transparent hover:bg-black/20 hover:text-white'
-              }`}
-              title={`Toggle ${win.label} window`}
-            >
-              <IconComp className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline">{win.label}</span>
-              {isOpen && (
-                <div
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    isFocused ? 'bg-[#D46B38]' : 'bg-[#F3CB5A]'
-                  }`}
-                />
-              )}
-            </button>
-          )
-        })}
-      </div>
-
-      {/* Social Brand Tiles (Matching Reference Image) */}
-      <div className="flex items-center gap-2 shrink-0">
-        <div className="h-6 w-px bg-white/20 hidden xs:block mx-1" />
-        {socials.map((soc) => (
-          <a
-            key={soc.id}
-            href={soc.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={soc.label}
-            className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl border-2 border-[#2A2A2A] flex items-center justify-center shadow-xs transform hover:-translate-y-1 hover:scale-110 transition-all cursor-pointer"
-            style={{ backgroundColor: soc.bg }}
-          >
-            {soc.content}
-          </a>
-        ))}
-      </div>
-
+    <Dock
+      items={items}
+      magnification={1.7}
+      distance={140}
+      iconSize={42}
+      borderRadius={16}
+      className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 bg-[#5A633F] border-2 border-[#2A2A2A] retro-dock-shadow max-w-[95vw] px-3 py-2 flex items-center justify-between"
+    >
       {/* Retro OS Clock Display */}
-      <div className="hidden md:flex items-center gap-1.5 pl-2 border-l border-white/20 font-space text-xs font-bold text-white shrink-0">
+      <div className="hidden md:flex items-center gap-1.5 pl-3 ml-1 border-l border-white/20 font-space text-xs font-bold text-white shrink-0 self-center h-8">
         <Sparkles className="w-3.5 h-3.5 text-[#F3CB5A]" />
         <span>{timeStr || '12:00 PM'}</span>
       </div>
-    </nav>
+    </Dock>
   )
 }
