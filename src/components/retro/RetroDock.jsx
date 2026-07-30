@@ -37,24 +37,6 @@ export default function RetroDock({
       content: <Github className="w-5 h-5 text-white" />,
     },
     {
-      id: 'behance',
-      label: 'Behance',
-      url: 'https://github.com/RehanShaikh23',
-      bg: '#0056FF',
-      content: <span className="font-space font-bold text-xs text-white">Bē</span>,
-    },
-    {
-      id: 'dribbble',
-      label: 'Dribbble',
-      url: 'https://github.com/RehanShaikh23',
-      bg: '#E74D89',
-      content: (
-        <div className="w-4 h-4 rounded-full border-2 border-white flex items-center justify-center">
-          <div className="w-2 h-2 rounded-full border border-white" />
-        </div>
-      ),
-    },
-    {
       id: 'email',
       label: 'Email',
       url: 'https://mail.google.com/mail/?view=cm&to=rehanshaikh.dev@gmail.com',
