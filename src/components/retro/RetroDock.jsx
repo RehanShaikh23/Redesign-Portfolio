@@ -68,8 +68,8 @@ export default function RetroDock({
         className: isFocused
           ? 'bg-[#FAF7F0] text-[#2A2A2A] border-2 border-[#2A2A2A] font-bold shadow-md'
           : isOpen
-          ? 'bg-[#474E31] text-white border border-white/40 hover:bg-[#3D4428]'
-          : 'bg-black/20 text-white/80 border border-white/10 hover:bg-black/30 hover:text-white',
+          ? 'bg-neutral-800 text-white border border-white/40 hover:bg-neutral-700'
+          : 'bg-white/10 text-white/80 border border-white/10 hover:bg-white/20 hover:text-white',
         icon: (
           <div className="relative flex items-center justify-center w-full h-full">
             <IconComp className="w-5 h-5" />
@@ -102,7 +102,7 @@ export default function RetroDock({
       distance={140}
       iconSize={42}
       borderRadius={16}
-      className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 bg-[#5A633F] border-2 border-[#2A2A2A] retro-dock-shadow max-w-[95vw] px-3 py-2 flex items-center justify-between"
+      className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 bg-black/90 backdrop-blur-md border-2 border-white/20 retro-dock-shadow max-w-[95vw] px-3 py-2 flex items-center justify-between"
     >
       {/* Retro OS Clock Display */}
       <div className="hidden md:flex items-center gap-1.5 pl-3 ml-1 border-l border-white/20 font-space text-xs font-bold text-white shrink-0 self-center h-8">

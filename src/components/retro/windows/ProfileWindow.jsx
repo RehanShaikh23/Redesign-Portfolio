@@ -1,5 +1,5 @@
 import React from 'react'
-import RehanPic from '../../../assets/RehanShaikh.jpeg'
+import RehanPic from '../../../assets/My Pic.jpeg'
 import { FileText, MapPin, GraduationCap, Code2, ArrowUpRight } from 'lucide-react'
 
 export default function ProfileWindow({ onOpenWorks }) {

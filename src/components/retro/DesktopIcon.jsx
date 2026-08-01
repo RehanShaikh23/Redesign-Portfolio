@@ -77,8 +77,8 @@ export default function DesktopIcon({
       onDoubleClick={onDoubleClick}
       className={`group flex flex-col items-center gap-1.5 p-2 rounded-lg cursor-grab active:cursor-grabbing select-none touch-none relative z-10 ${
         isSelected
-          ? 'bg-[#5A633F]/15 ring-2 ring-[#5A633F] ring-offset-2 ring-offset-[#ECE6D8]'
-          : 'hover:bg-[#5A633F]/10'
+          ? 'bg-white/20 ring-2 ring-white/80 ring-offset-1 ring-offset-black/40'
+          : 'hover:bg-white/10'
       }`}
       aria-label={`Open ${title} window`}
       role="button"
@@ -88,7 +88,7 @@ export default function DesktopIcon({
       {type === 'folder' && <FolderIcon />}
       {type === 'tools' && <ToolsFolderIcon />}
 
-      <span className="font-space text-xs sm:text-sm font-semibold text-[#2A2A2A] tracking-tight group-hover:text-black pointer-events-none">
+      <span className="font-space text-xs sm:text-sm font-semibold text-white tracking-tight group-hover:text-white/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] pointer-events-none">
         {title}
       </span>
     </motion.div>

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import backgroundImage from '../../assets/velvex-Image 2.png'
 import DesktopIcon from './DesktopIcon'
 import RetroWindow from './RetroWindow'
 import RetroDock from './RetroDock'
@@ -115,14 +116,25 @@ export default function DesktopWallpaper() {
     <div
       ref={desktopRef}
       onClick={() => setSelectedIconId(null)}
-      className="min-h-screen bg-graph-paper relative overflow-hidden select-none pb-24 flex flex-col justify-between"
+      className="min-h-screen relative overflow-hidden select-none pb-24 flex flex-col justify-between bg-black"
     >
-      {/* Central Wallpaper Title matching Reference Image */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+      {/* Dynamic Fullscreen Image Background */}
+      <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <img
+          src={backgroundImage}
+          alt="Desktop Background"
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Subtle Overlay to enhance contrast for retro OS elements */}
+        <div className="absolute inset-0 bg-black/15 backdrop-brightness-95 pointer-events-none" />
+      </div>
+
+      {/* Central Wallpaper Title */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]">
         <h1
-          className="font-outfit text-6xl sm:text-8xl md:text-9xl font-black uppercase tracking-[0.2em] text-[#5A633F]/25 select-none text-center"
+          className="font-outfit text-6xl sm:text-8xl md:text-9xl font-black uppercase tracking-[0.2em] text-white/20 select-none text-center drop-shadow-md"
           style={{
-            WebkitTextStroke: '2px rgba(90, 99, 63, 0.4)',
+            WebkitTextStroke: '2px rgba(255, 255, 255, 0.3)',
             color: 'transparent',
           }}
         >
